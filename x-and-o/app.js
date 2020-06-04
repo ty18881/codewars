@@ -16,18 +16,39 @@ XO("zzoo") => false
     
     let input = str.toLowerCase();
 
-    let xCount = input.split('x').length;
+    let inputArray = input.split("");
 
-    let oCount = input.split('o').length;
+    let inputLength = inputArray.length;
+
+    // let xCount = input.split('x').length;
+    let xCount = 0;
+
+    // let oCount = input.split('o').length;
+    let oCount = 0;
+
+    for (let i=0; i < inputLength; i++) {
+        switch (inputArray[i]){
+            case 'x':
+                xCount+=1;
+                break;
+            case 'o':
+                oCount+=1;
+                break;
+            default:
+                // otherCount+=1;
+        }
+    }
 
     return xCount === oCount;
     
  }
 
- console.log(XO('ooxx'));
+//  console.log(XO('ooxx'));
 
- console.log(XO("zpzpzpp"));
+//  console.log(XO("zpzpzpp"));
 
- console.log(XO("zzoo"));
+//  console.log(XO("zzoo"));
 
- console.log(XO(''));  // returns nothing
+ console.log(XO(''));
+
+ console.log(XO('xyzoyz'))
