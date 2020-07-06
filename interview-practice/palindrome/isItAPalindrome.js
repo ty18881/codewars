@@ -6,7 +6,7 @@
  * EXAMPLE GIVEN:  civic => true,  ivicc => true
  * 
  * LOGIC:  track the number of characters that appear an odd number of t
- * times in the input string.  If you have more that one => string is NOT a palindrome
+ * times in the input string.  If you have more than one => string is NOT a palindrome
  * 
  * DATA STRUCTURE:  Object/Hash-like structure => these structures optimize for time
  * when we are working with multiple items or have to compare multiple items.
