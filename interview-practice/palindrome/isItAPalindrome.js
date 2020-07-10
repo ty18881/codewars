@@ -15,10 +15,16 @@
 
 function hasPalindromePermutation(theString) {
 
+
+  // adapting this to be friendly to strings with punctuation, spaces and capital letters.
+
+  let modifiedString = theString.toLowerCase().replace(/\s+|[^\w]/g, '');
+
+  
     // Track characters we've seen an odd number of times
     const unpairedCharacters = new Set();
   
-    for (let char of theString) {
+    for (let char of modifiedString) {
       if (unpairedCharacters.has(char)) {
         unpairedCharacters.delete(char);
       } else {
@@ -30,3 +36,8 @@ function hasPalindromePermutation(theString) {
     // has one or zero characters without a pair
     return unpairedCharacters.size <= 1;
   }
+
+  console.log(hasPalindromePermutation("Was it a cat I saw"));
+
+  console.log(hasPalindromePermutation("Civic"));
+
