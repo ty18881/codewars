@@ -10,6 +10,9 @@ const maskDigits = (cardNum) => {
 // below matches digits only if they are immediately followed by 4 digits.
 // the 4 digits are not returned in the match results.
     return cardString.replace(/\d(?=\d{4})/g, '*');
+
+    // replace d with w to mask alpha characters.
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet
 }
 
 console.log(maskDigits(88888888));
