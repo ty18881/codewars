@@ -1,0 +1,99 @@
+/**
+ * Confirm orders from two inbound queues are being fulfilled in FIFO sequence
+ */
+
+// Iteration One - Recursion and Array Slicing
+// O(n^2) on space due to the array slices being stored on the call stack.
+
+// 
+
+
+// Iteration Two:  Eliminate array slicing to optimize space complexity
+// O(n) time complexity
+// O(n) space
+
+// 'pointers' to track position in the various arrays.
+
+// function isFirstComeFirstServed(takeOutOrders, dineInOrders, servedOrders, servedOrdersIndex, takeOutOrdersIndex, dineInOrdersIndex) {
+//     servedOrdersIndex = (typeof servedOrdersIndex !== 'undefined') ? servedOrdersIndex : 0;
+//     takeOutOrdersIndex = (typeof takeOutOrdersIndex !== 'undefined') ? takeOutOrdersIndex : 0;
+//     dineInOrdersIndex = (typeof dineInOrdersIndex !== 'undefined') ? dineInOrdersIndex : 0;
+
+//     // base case we've hit the end of servedOrders
+//     if (servedOrdersIndex === servedOrders.length) {
+//         return true;
+//     }
+
+//     // if we still have orders in takeOutOrders
+//     // and the current order in takeOutOrders is the same
+//     // as the current order in servedOrders
+//     if ((takeOutOrdersIndex < takeOutOrders.length) &&
+//             (takeOutOrders[takeOutOrdersIndex] === servedOrders[servedOrdersIndex])) {
+//         takeOutOrdersIndex++;
+
+
+//     // if we still have orders in dineInOrders
+//     // and the current order in dineInOrders is the same
+//     // as the current order in servedOrders
+//     } else if ((dineInOrdersIndex < dineInOrders.length) &&
+//             (dineInOrders[dineInOrdersIndex] === servedOrders[servedOrdersIndex])) {
+//         dineInOrdersIndex++;
+
+//     // if the current order in servedOrders doesn't match
+//     // the current order in takeOutOrders or dineInOrders, then we're not
+//     // serving in first-come, first-served order.
+//     } else {
+//         return false;
+//     }
+
+//     // the current order in servedOrders has now been "accounted for"
+//     // so move on to the next one
+//     servedOrdersIndex++;
+//     return isFirstComeFirstServed(takeOutOrders, dineInOrders, servedOrders, servedOrdersIndex, takeOutOrdersIndex, dineInOrdersIndex);
+// }
+
+
+// Iteration three:  Eliminate recursive call to optimize on memory/space
+// simply iterate through servedOrders collection instead.
+
+function isFirstComeFirstServed(takeOutOrders, dineInOrders, servedOrders) {
+    var takeOutOrdersIndex = 0;
+    var dineInOrdersIndex = 0;
+    var takeOutOrdersMaxIndex = takeOutOrders.length - 1;
+    var dineInOrdersMaxIndex = dineInOrders.length - 1;
+
+    for (var i = 0; i < servedOrders.length; i++) {
+        var order = servedOrders[i];
+
+        // if we still have orders in takeOutOrders
+        // and the current order in takeOutOrders is the same
+        // as the current order in servedOrders
+        if (takeOutOrdersIndex <= takeOutOrdersMaxIndex &&
+                order === takeOutOrders[takeOutOrdersIndex]) {
+            takeOutOrdersIndex++;
+
+        // if we still have orders in dineInOrders
+        // and the current order in dineInOrders is the same
+        // as the current order in servedOrders
+        } else if (dineInOrdersIndex <= dineInOrdersMaxIndex &&
+                order === dineInOrders[dineInOrdersIndex]) {
+            dineInOrdersIndex++;
+
+        // if the current order in servedOrders doesn't match the current
+        // order in takeOutOrders or dineInOrders, then we're not serving first-come,
+        // first-served
+        } else {
+            return false;
+        }
+    }
+
+    // check for any extra orders at the end of takeOutOrders or dineInOrders
+    if (dineInOrdersIndex != dineInOrders.length ||
+           takeOutOrdersIndex != takeOutOrders.length) {
+        return false;
+    }
+
+    // all orders in servedOrders have been "accounted for"
+    // so we're serving first-come, first-served!
+    return true;
+}
